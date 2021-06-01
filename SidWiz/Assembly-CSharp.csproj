@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AnimatedGifDrawer.cs" />
+     <Compile Include="Assets\FollowCamera.cs" />
+     <Compile Include="Assets\ScrollBackground.cs" />
      <Compile Include="Assets\SidWizBehaviour.cs" />
      <Compile Include="Assets\SidWIzLinesRenderer.cs" />
      <Compile Include="Assets\SidWizPlus\BackgroundRenderer.cs" />
@@ -79,7 +81,9 @@
      <Compile Include="Assets\SidWizPlus\Triggers\WidestWaveTrigger.cs" />
      <Compile Include="Assets\SidWizPlus\VgmFile.cs" />
      <Compile Include="Assets\SidWizPlus\WaveformRenderer.cs" />
+     <None Include="Assets\10+1 StandartMaterials\Shaders\Shader2.shader" />
      <None Include="Assets\JsonDotNet\link.xml" />
+     <None Include="Assets\10+1 StandartMaterials\Shaders\Shader1.shader" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

@@ -46,7 +46,7 @@ public class SidWIzLinesRenderer : MonoBehaviour
     }
 
     // Increase the number of calls to Update.
-    void FixedUpdate()
+    void Update()
     {
         var lines = pr.Renderer.RenderFrameLines((float)(((sw.ElapsedMilliseconds) / audioLengthMillis)), Time.frameCount * 2f );
         

@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AnimatedGifDrawer.cs" />
-     <Compile Include="Assets\Music.cs" />
      <Compile Include="Assets\SidWizBehaviour.cs" />
      <Compile Include="Assets\SidWIzLinesRenderer.cs" />
      <Compile Include="Assets\SidWizPlus\BackgroundRenderer.cs" />

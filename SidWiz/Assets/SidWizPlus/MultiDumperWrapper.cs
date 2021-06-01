@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-// using Newtonsoft.Json;
-// using Newtonsoft.Json.Linq;
+using UnityEngine;
 
 namespace LibSidWiz
 {
@@ -40,72 +39,75 @@ namespace LibSidWiz
 
         public IEnumerable<Song> GetSongs(string filename)
         {
-            return new List<Song>();
+            
+            filename = Path.GetFullPath(filename);
+            
+            if (!File.Exists(filename))
+            {
+                throw new FileNotFoundException("Cannot find VGM file", filename);
+            }
+            
+            string json;
+            using (var p = new ProcessWrapper(
+                _multiDumperPath,
+                $"\"{filename}\" --json"))
+            {
+                json = string.Join("", p.Lines());
+            }
+            
+            if (string.IsNullOrEmpty(json))
+            {
+                throw new Exception("Failed to get song data from MultiDumper");
+            }
 
-            // filename = Path.GetFullPath(filename);
-            //
-            // if (!File.Exists(filename))
+            // Extract metadata
+            // Example result:
             // {
-            //     throw new FileNotFoundException("Cannot find VGM file", filename);
+            //  "channels":[
+            //      "SEGA PSG #0","SEGA PSG #1","SEGA PSG #2","SEGA PSG #3",
+            //      "YM2413 #0","YM2413 #1","YM2413 #2","YM2413 #3","YM2413 #4","YM2413 #5","YM2413 #6",
+            //      "YM2413 #7","YM2413 #8","YM2413 #9","YM2413 #10","YM2413 #11","YM2413 #12","YM2413 #13"],
+            //  "containerinfo":
+            //  {
+            //      "copyright":"1988/08/14",
+            //      "dumper":"sherpa",
+            //      "game":"Golvellius - Valley of Doom",
+            //      "system":"Sega Master System"
+            //  },
+            //  "songs":[
+            //      {
+            //          "author":"Masatomo Miyamoto, Takeshi Santo, Shin-kun, Pazu",
+            //          "comment":"",
+            //          "name":"Title Screen"
+            //      }],
+            //  "subsongCount":1
             // }
-            //
-            // string json;
-            // using (var p = new ProcessWrapper(
-            //     _multiDumperPath,
-            //     $"\"{filename}\" --json"))
-            // {
-            //     json = string.Join("", p.Lines());
-            // }
-            //
-            // if (string.IsNullOrEmpty(json))
-            // {
-            //     throw new Exception("Failed to get song data from MultiDumper");
-            // }
-            //
-            // // Extract metadata
-            // // Example result:
-            // // {
-            // //  "channels":[
-            // //      "SEGA PSG #0","SEGA PSG #1","SEGA PSG #2","SEGA PSG #3",
-            // //      "YM2413 #0","YM2413 #1","YM2413 #2","YM2413 #3","YM2413 #4","YM2413 #5","YM2413 #6",
-            // //      "YM2413 #7","YM2413 #8","YM2413 #9","YM2413 #10","YM2413 #11","YM2413 #12","YM2413 #13"],
-            // //  "containerinfo":
-            // //  {
-            // //      "copyright":"1988/08/14",
-            // //      "dumper":"sherpa",
-            // //      "game":"Golvellius - Valley of Doom",
-            // //      "system":"Sega Master System"
-            // //  },
-            // //  "songs":[
-            // //      {
-            // //          "author":"Masatomo Miyamoto, Takeshi Santo, Shin-kun, Pazu",
-            // //          "comment":"",
-            // //          "name":"Title Screen"
-            // //      }],
-            // //  "subsongCount":1
-            // // }
-            // dynamic metadata = JsonConvert.DeserializeObject(json);
-            //
-            // var channels = metadata.channels.ToObject<List<string>>();
-            // var songs = (JArray) metadata.songs;
-            // var i = 0;
-            //
-            // // This helps us reject any junk strings MultiDumper gives us for empty tags
-            // string Clean(string s) => string.IsNullOrEmpty(s) || s.Any(char.IsControl) ? string.Empty : s;
-            // return songs.Cast<dynamic>().Select(s => new Song
-            // {
-            //     Filename = filename,
-            //     Index = i++,
-            //     Name = Clean(s.name),
-            //     Author = Clean(s.author),
-            //     Channels = channels,
-            //     Comment = Clean(s.comment),
-            //     Copyright = Clean(metadata.containerinfo.copyright),
-            //     Dumper = Clean(metadata.containerinfo.dumper),
-            //     Game = Clean(metadata.containerinfo.game),
-            //     System = Clean(metadata.containerinfo.system)
-            // });
-        }   
+
+            
+            var metadata = JsonUtility.FromJson<Root>(json);
+            
+            var channels = metadata.channels;
+            var songs = metadata.songs;
+            var i = 0;
+            
+            // This helps us reject any junk strings MultiDumper gives us for empty tags
+            
+            return songs.Select(s => new Song
+            {
+                Filename = filename,
+                Index = i++,
+                Name = Clean(s.name),
+                Author = Clean(s.author),
+                Channels = channels,
+                Comment = Clean(s.comment),
+                Copyright = Clean(metadata.containerinfo.copyright),
+                Dumper = Clean(metadata.containerinfo.dumper),
+                Game = Clean(metadata.containerinfo.game),
+                System = Clean(metadata.containerinfo.system)
+            });
+        }  
+        
+        private string Clean(string s) => string.IsNullOrEmpty(s) || s.Any(char.IsControl) ? string.Empty : s;
 
         public IEnumerable<string> Dump(Song song, Action<double> onProgress)
         {
@@ -148,5 +150,31 @@ namespace LibSidWiz
         {
             _processWrapper?.Dispose();
         }
+    }
+
+    [System.Serializable]
+    public class Containerinfo
+    {
+        public string copyright;
+        public string dumper;
+        public string game;
+        public string system;
+    }
+
+    [System.Serializable]
+    public class JsonSong
+    {
+        public string author;
+        public string comment;
+        public string name;
+    }
+
+    [System.Serializable]
+    public class Root
+    {
+        public List<string> channels;
+        public Containerinfo containerinfo;
+        public List<JsonSong> songs;
+        public int subsongCount;
     }
 }

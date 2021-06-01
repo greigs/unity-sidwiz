@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-// using System.Windows.Forms;
-// using CommandLine;
-// using CommandLine.Text;
 using LibSidWiz;
 using LibSidWiz.Outputs;
 using LibSidWiz.Triggers;
@@ -29,8 +25,8 @@ namespace SidWizPlus
             {
                 var settings = new Settings()
                 {
-                    MultidumperPath = @"C:\repo\SidWizPlus\SidWizPlus\bin\Debug\multidumper.exe",
-                    VgmFile = @"C:\repo\SidWizPlus\SidWizPlus\bin\Debug\sonic.vgz"
+                    MultidumperPath = @"c:\repo\unity-sidwiz\SidWiz\WavGen\multidumper.exe",
+                    VgmFile = @"WavGen\sonic.vgz"
                 };
 
                 // ReSharper disable once RedundantNameQualifier

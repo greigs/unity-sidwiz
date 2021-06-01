@@ -26,8 +26,14 @@ public class SidWIzLinesRenderer : MonoBehaviour
     {
         pr = new Program();
         pr.Main();
+        StartMusic();
 
-        var file = @"C:\repo\unity-sidwiz\SidWiz\SidWiz\SidWizPlus\bin\Debug\sonic - SN76496 #0.wav";
+        sw = Stopwatch.StartNew();
+    }
+
+    void StartMusic()
+    {
+        var file = @"WavGen\sonic - SN76496 #0.wav";
         var aud = new AudioFileReader(file);
         audioLengthMillis = aud.TotalTime.TotalMilliseconds;
         var ad = new float[aud.Length];
@@ -37,7 +43,6 @@ public class SidWIzLinesRenderer : MonoBehaviour
         clip.SetData(ad, 0);
         soundSystem.clip = clip;
         soundSystem.Play();
-        sw = Stopwatch.StartNew();
     }
 
     // Increase the number of calls to Update.

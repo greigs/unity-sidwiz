@@ -15,6 +15,7 @@ public class SidWIzLinesRenderer : MonoBehaviour
     public LineRenderer LineRenderer;
     public EdgeCollider2D EdgeCollider;
     public PolygonCollider2D PolyCollider;
+    public GameObject followTarget;
     Program pr;
 
     public AudioSource soundSystem;
@@ -48,7 +49,7 @@ public class SidWIzLinesRenderer : MonoBehaviour
     // Increase the number of calls to Update.
     void Update()
     {
-        var lines = pr.Renderer.RenderFrameLines((float)(((sw.ElapsedMilliseconds) / audioLengthMillis)), Time.frameCount * 2f );
+        var lines = pr.Renderer.RenderFrameLines((float)(((sw.ElapsedMilliseconds) / audioLengthMillis)), followTarget.transform.position.x * 17f );
         
         LineRenderer.positionCount = lines[0].Length;
         LineRenderer.SetPositions(lines[0].Select(x => new Vector3((x.X / 7f), x.Y / 7f)).ToArray());

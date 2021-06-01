@@ -496,7 +496,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -996,6 +996,7 @@ MonoBehaviour:
   LineRenderer: {fileID: 1995636013}
   EdgeCollider: {fileID: 1995636016}
   PolyCollider: {fileID: 1995636017}
+  followTarget: {fileID: 1245303221}
   soundSystem: {fileID: 1112128526}
 --- !u!68 &1995636016
 EdgeCollider2D:

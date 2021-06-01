@@ -48,15 +48,13 @@ public class SidWIzLinesRenderer : MonoBehaviour
     // Increase the number of calls to Update.
     void FixedUpdate()
     {
-        var lines = pr.Renderer.RenderFrameLines((float)((sw.ElapsedMilliseconds) / audioLengthMillis));
+        var lines = pr.Renderer.RenderFrameLines((float)(((sw.ElapsedMilliseconds) / audioLengthMillis)), Time.frameCount * 2f );
         
         LineRenderer.positionCount = lines[0].Length;
-        LineRenderer.SetPositions(lines[0].Select(x => new Vector3(x.X / 7f, x.Y / 7f)).ToArray());
+        LineRenderer.SetPositions(lines[0].Select(x => new Vector3((x.X / 7f), x.Y / 7f)).ToArray());
         //EdgeCollider.points = lines[0].Select(x => new Vector2(x.X / 7f, x.Y / 7f)).ToArray();
-        var points = lines[0].Select(x => new Vector2(x.X / 7f, x.Y / 7f)).ToList();
+        var points = lines[0].Select(x => new Vector2((x.X / 7f), x.Y / 7f)).ToList();
         PolyCollider.points = new List<Vector2>() {new Vector2(0, 0)}.Concat(points)
             .Concat(new List<Vector2>(){ new Vector2(100, 0), new Vector2(50, 0)}).ToArray();
     }
-
-
 }

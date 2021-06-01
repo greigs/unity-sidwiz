@@ -7,6 +7,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.InteropServices;
 using LibSidWiz.Outputs;
+using UnityEngine.iOS;
 
 namespace LibSidWiz
 {
@@ -262,7 +263,7 @@ namespace LibSidWiz
             }
         }
 
-        private List<PointF[]> RenderLines(int startFrame, int endFrame)
+        private List<PointF[]> RenderLines(int startFrame, int endFrame, float offset, float yscale)
         {
             // Default rendering bounds if not set
             var renderingBounds = RenderingBounds;
@@ -332,7 +333,7 @@ namespace LibSidWiz
                             triggerPoints[channelIndex]);
                         triggerPoints[channelIndex] = triggerPoint;
 
-                        RenderPoints(channel, triggerPoint, buffers[channelIndex]);
+                        RenderPoints(channel, triggerPoint, buffers[channelIndex], offset, yscale);
                     }
                 }
             }
@@ -507,14 +508,14 @@ namespace LibSidWiz
             }
         }
 
-        private void RenderPoints(Channel channel, int triggerPoint, PointF[] points)
+        private void RenderPoints(Channel channel, int triggerPoint, PointF[] points, float offset, float yscale)
         {
-            var leftmostSampleIndex = triggerPoint - channel.ViewWidthInSamples / 2;
+            var leftmostSampleIndex = triggerPoint - channel.ViewWidthInSamples / 2 + (int)offset;
 
             float xOffset = channel.Bounds.Left;
             float xScale = (float)channel.Bounds.Width / channel.ViewWidthInSamples;
             float yOffset = channel.Bounds.Top + channel.Bounds.Height * 0.5f;
-            float yScale = -channel.Bounds.Height * 0.5f;
+            float yScale = -channel.Bounds.Height * 0.5f * yscale;
             for (int i = 0; i < channel.ViewWidthInSamples; ++i)
             {
                 var sampleValue = channel.GetSample(leftmostSampleIndex + i, false);
@@ -595,13 +596,13 @@ namespace LibSidWiz
            
         }
 
-        public List<PointF[]> RenderFrameLines(float position)
+        public List<PointF[]> RenderFrameLines(float position, float offset)
         {
             var frameIndex = _channels.Count > 0
                 ? (int)(position * _channels.Max(c => c.SampleCount) * FramesPerSecond / SamplingRate)
                 : 0;
 
-            List<PointF[]> result = RenderLines(frameIndex, frameIndex + 1);
+            List<PointF[]> result = RenderLines(frameIndex, frameIndex + 1, offset, 2f);
             return result;
 
         }

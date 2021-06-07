@@ -19,14 +19,14 @@ namespace SidWizPlus
         public WaveformRenderer Renderer { get; set; }
 
 
-        public void Main()
+        public string[] Main()
         {
             try
             {
                 var settings = new Settings()
                 {
                     MultidumperPath = @"c:\repo\unity-sidwiz\SidWiz\WavGen\multidumper.exe",
-                    VgmFile = @"WavGen\sonic.vgz"
+                    VgmFile = @"WavGen\casino.vgz"
                 };
 
                 // ReSharper disable once RedundantNameQualifier
@@ -111,7 +111,7 @@ namespace SidWizPlus
                         channel.LoadDataAsync().Wait();
                         channel.ViewWidthInMilliseconds = settings.ViewWidthMs;
                         return channel;
-                    }).Where(ch => ch.SampleCount > 0).ToList();
+                    }).Where(ch => ch.SampleCount > 0 && !ch.IsEmpty).ToList();
     
                     if (settings.AutoScalePercentage > 0)
                     {
@@ -162,6 +162,8 @@ namespace SidWizPlus
                     // {
                     //     channel.Dispose();
                     // }
+
+                    return channels.Select(x => x.Filename).ToArray();
                 }
     
             }
@@ -169,6 +171,8 @@ namespace SidWizPlus
             {
                 Console.Error.WriteLine($"Fatal: {e}");
             }
+
+            return null;
         }
     
         private class InstrumentState
@@ -459,7 +463,7 @@ namespace SidWizPlus
                 Renderer.AddChannel(channel);
             }
     
-            var outputs = new List<IGraphicsOutput>();
+            //var outputs = new List<IGraphicsOutput>();
             // if (settings.FfMpegPath != null)
             // {
             //     Console.WriteLine("Adding FFMPEG renderer...");

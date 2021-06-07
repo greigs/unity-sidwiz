@@ -274,7 +274,7 @@ namespace LibSidWiz
 
             // Compute channel bounds
             var numRows = _channels.Count / Columns + (_channels.Count % Columns == 0 ? 0 : 1);
-            for (int i = 0; i < _channels.Count; ++i)
+            for (int i = 0; i < _channels.Count; i++)
             {
 
                 var channel = _channels[i];
@@ -286,9 +286,15 @@ namespace LibSidWiz
                 channel.Bounds = new Rectangle(x, y, ((column + 1) * renderingBounds.Width / Columns + renderingBounds.Left) - x, ((row + 1) * renderingBounds.Height / numRows + renderingBounds.Top) - y);
             }
 
+
+            for (int i = 1; i < _channels.Count; i++)
+            {
+                _channels[i].Bounds = _channels[0].Bounds;
+            }
+
             // Prepare buffers to hold the line coordinates
             var buffers = _channels.Select(channel => new PointF[channel.ViewWidthInSamples]).ToList();
-
+            var outputBuffers = new List<PointF[]>();
             var frameSamples = SamplingRate / FramesPerSecond;
 
             // Initialise the "previous trigger points"
@@ -334,11 +340,12 @@ namespace LibSidWiz
                         triggerPoints[channelIndex] = triggerPoint;
 
                         RenderPoints(channel, triggerPoint, buffers[channelIndex], offset, yscale);
+                        outputBuffers.Add(buffers[channelIndex]);
                     }
                 }
             }
 
-            return buffers;
+            return outputBuffers;
         }
 
 

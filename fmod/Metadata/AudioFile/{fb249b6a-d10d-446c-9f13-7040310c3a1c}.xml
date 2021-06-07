@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{fb249b6a-d10d-446c-9f13-7040310c3a1c}">
+		<property name="assetPath">
+			<value>220866__mattc90__matt-s-house-kick-drum-120-bpm.aiff</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>8</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{97cc87cf-2b8c-41d7-b0b9-cef545ac8fa4}</destination>
+		</relationship>
+	</object>
+</objects>

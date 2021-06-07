@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AnimatedGifDrawer.cs" />
+     <Compile Include="Assets\AudioTimeline.cs" />
      <Compile Include="Assets\FollowCamera.cs" />
      <Compile Include="Assets\FollowCameraX.cs" />
      <Compile Include="Assets\PlayerController2D.cs" />
@@ -672,6 +673,16 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{0DD59246-CC95-C388-2591-790A3BB86F7E}</Project>      <Name>FMODUnity</Name>    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonance.csproj">
+      <Project>{FDC6BFB4-237F-E5BC-1A62-30995659FC28}</Project>      <Name>FMODUnityResonance</Name>    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
+      <Project>{7E54DD94-ABBC-AB93-7CAC-AAF82433E4D2}</Project>      <Name>FMODUnityResonanceEditor</Name>    </ProjectReference>
+    <ProjectReference Include="FMODUnityEditor.csproj">
+      <Project>{B02478D8-B07C-DA33-231E-203E05688785}</Project>      <Name>FMODUnityEditor</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

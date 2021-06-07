@@ -6,8 +6,11 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public PlayerController2D controller;
-    public float RunSpeed = 40f;
-    private float horizontalMove = 0;
+    public AudioTimeline audioTimeline;
+    public float RunSpeed = 0.01f;
+    public float currentSpeed;
+    private float horizontalMove = 0f;
+
 
     private bool jump = false;
 	// Use this for initialization
@@ -27,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime,false,jump);
+        currentSpeed = horizontalMove * Time.fixedDeltaTime;
+        controller.Move(currentSpeed,false,jump);
         jump = false;
 
     }

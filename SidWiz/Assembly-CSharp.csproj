@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\AnimatedGifDrawer.cs" />
      <Compile Include="Assets\AudioTimeline.cs" />
+     <Compile Include="Assets\BackgroundColour.cs" />
      <Compile Include="Assets\FollowCamera.cs" />
      <Compile Include="Assets\FollowCameraX.cs" />
      <Compile Include="Assets\IAudioEventMessageTarget.cs" />

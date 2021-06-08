@@ -57,6 +57,8 @@
      <Compile Include="Assets\AudioTimeline.cs" />
      <Compile Include="Assets\FollowCamera.cs" />
      <Compile Include="Assets\FollowCameraX.cs" />
+     <Compile Include="Assets\IAudioEventMessageTarget.cs" />
+     <Compile Include="Assets\PlatformCreator.cs" />
      <Compile Include="Assets\PlayerController2D.cs" />
      <Compile Include="Assets\PlayerMovement.cs" />
      <Compile Include="Assets\ScrollBackground.cs" />

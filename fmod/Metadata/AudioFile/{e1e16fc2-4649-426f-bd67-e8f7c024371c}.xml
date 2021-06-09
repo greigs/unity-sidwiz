@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.01.00">
-	<object class="AudioFile" id="{10294337-aca9-4dca-83f2-96ff81b68b11}">
-		<property name="note" />
+	<object class="AudioFile" id="{e1e16fc2-4649-426f-bd67-e8f7c024371c}">
 		<property name="assetPath">
-			<value>325112__fisch12345__success.wav</value>
+			<value>418303__realdavidfloat__cymbols-boop-120bpm-02.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<property name="length">
-			<value>6.8017687074829931</value>
+			<value>2</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{97cc87cf-2b8c-41d7-b0b9-cef545ac8fa4}</destination>

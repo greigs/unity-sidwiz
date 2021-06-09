@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.XR;
@@ -37,20 +38,35 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
         beatCallback = new FMOD.Studio.EVENT_CALLBACK(BeatEventCallback);
 
         musicInstanceMaster = FMODUnity.RuntimeManager.CreateInstance("event:/MasterTimeline");
-
+        //var info = FMODUnity.RuntimeManager.GetEventDescription("event:/Beat");
+       
         // Pin the class that will store the data modified during the callback
         timelineHandle = GCHandle.Alloc(timelineInfo, GCHandleType.Pinned);
         // Pass the object through the userdata of the instance
         musicInstanceMaster.setUserData(GCHandle.ToIntPtr(timelineHandle));
 
-        musicInstanceMaster.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND | FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED | FMOD.Studio.EVENT_CALLBACK_TYPE.CREATED | FMOD.Studio.EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND);
+        musicInstanceMaster.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND);
+        //musicInstanceMaster.setCallback(beatCallback);
+        //musicInstanceMaster.setCallback(beatCallback, FMOD.Studio.EVENT_CALLBACK_TYPE.ALL);
+        // FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT 
+        // | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER
+        // | FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND 
+        // | FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED
+        // | FMOD.Studio.EVENT_CALLBACK_TYPE.CREATED 
+        // | FMOD.Studio.EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND);
         musicInstanceMaster.start();
-        musicInstanceMaster.setPaused(true);
+        //musicInstanceMaster.setPaused(true);
 
     }
 
     void FixedUpdate()
     {
+        if (triggerBeat)
+        {
+            Beat();
+            triggerBeat = false;
+        }
+
         bool isPaused;
         var isMoving =  PlayerMovement.velocity.x > 0.1f || PlayerMovement.velocity.x < -0.1f;
         musicInstanceMaster.getPaused(out isPaused);
@@ -61,7 +77,7 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
         }
         else if (!isMoving && !isPaused)
         {
-            musicInstanceMaster.setPaused(true);
+           musicInstanceMaster.setPaused(true);
         }
 
         if (isMoving)
@@ -69,11 +85,7 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
             musicInstanceMaster.setParameterByName("Pitch", PlayerMovement.velocity.x / 1.6f);
         }
 
-        if (triggerBeat)
-        {
-            Beat();
-            triggerBeat = false;
-        }
+
        
     }
 
@@ -107,51 +119,78 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
         else if (timelineInfoPtr != IntPtr.Zero)
         {
             // Get the object to store beat and marker details
-            GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
-            TimelineInfo timelineInfo = (TimelineInfo)timelineHandle.Target;
+            //GCHandle timelineHandle = GCHandle.FromIntPtr(timelineInfoPtr);
+            //TimelineInfo timelineInfotimelineInfo = (TimelineInfo)timelineHandle.Target;
 
             switch (type)
             {
+                case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
+                {
+                    // if (Beat != null)
+                    // {
+                    //     triggerBeat = true;
+                    // }
+
+                    break;
+                }
+
                 case FMOD.Studio.EVENT_CALLBACK_TYPE.CREATE_PROGRAMMER_SOUND:
                 {
                     var parameter = (FMOD.Studio.PROGRAMMER_SOUND_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.PROGRAMMER_SOUND_PROPERTIES));
                     var name = (string)parameter.name;
-                    if (name == "BeatProgrammerAction")
+
+                    if (name == "Beat")
+                    {
+
+                    }
+                    else if (name == "Hihat")
                     {
                         if (Beat != null)
                         {
                             triggerBeat = true;
                         }
-                        timelineInfo.currentMusicBar++;
                     }
                     break;
                 }
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.START_EVENT_COMMAND:
+                case EVENT_CALLBACK_TYPE.STARTED:
                 {
-                    break;
-                }
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
-                {
-                    var parameter = (FMOD.Studio.SOUND_INFO)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.SOUND_INFO));
-                    break;
-                }
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.CREATED:
-                {
-                    break;
-                }
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
-                {
-                    var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
-                    //timelineInfo.currentMusicBar = parameter.beat;
 
+                    // if (Beat != null)
+                    // {
+                    //     triggerBeat = true;
+                    // }
                     break;
                 }
-                case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
-                {
-                    var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
-                    timelineInfo.lastMarker = parameter.name; 
-                    break;
-                }
+                // case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
+                // {
+                //     var parameter = (FMOD.Studio.PROGRAMMER_SOUND_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.PROGRAMMER_SOUND_PROPERTIES));
+                //     var name = (string)parameter.name;
+                //
+                //     timelineInfo.currentMusicBar++;
+                //     break;
+                // }
+                // case FMOD.Studio.EVENT_CALLBACK_TYPE.SOUND_PLAYED:
+                // {
+                //     var parameter = (FMOD.Studio.SOUND_INFO)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.SOUND_INFO));
+                //     break;
+                // }
+                // case FMOD.Studio.EVENT_CALLBACK_TYPE.CREATED:
+                // {
+                //     break;
+                // }
+                // case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT:
+                // {
+                //     var parameter = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
+                //     //timelineInfo.currentMusicBar = parameter.beat;
+                //
+                //     break;
+                // }
+                // case FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER:
+                // {
+                //     var parameter = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
+                //     timelineInfo.lastMarker = parameter.name; 
+                //     break;
+                // }
             }
         }
         return FMOD.RESULT.OK;

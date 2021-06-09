@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.01.00">
-	<object class="EncodingSetting" id="{da3c6dcb-d16a-44da-8b7c-0cac09464042}">
+	<object class="EncodingSetting" id="{48cd5f49-fe5f-40fa-8357-f04ae1cd3510}">
 		<property name="quality">
 			<value>37</value>
+		</property>
+		<property name="sampleRateMode">
+			<value>1</value>
 		</property>
 		<property name="loadingMode">
 			<value>1</value>
@@ -11,7 +14,7 @@
 			<destination>{85efec5a-6757-4806-9535-000a80b818c1}</destination>
 		</relationship>
 		<relationship name="encodable">
-			<destination>{fb249b6a-d10d-446c-9f13-7040310c3a1c}</destination>
+			<destination>{10294337-aca9-4dca-83f2-96ff81b68b11}</destination>
 		</relationship>
 	</object>
 </objects>

@@ -141,10 +141,10 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0.61
+  m_EdgeRadius: 0.54
   m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 4, y: 0}
+  - {x: 0.45, y: 0}
+  - {x: 3.52, y: 0}
 --- !u!1 &8050189282625418873
 GameObject:
   m_ObjectHideFlags: 0

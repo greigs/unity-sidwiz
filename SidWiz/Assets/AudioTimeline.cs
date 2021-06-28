@@ -16,8 +16,10 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
     public EventInstance musicInstanceMaster;
     public delegate void OnBeat();
     public delegate void OnHihat();
+    public delegate void OnJump();
     public static OnBeat Beat;
     public static OnHihat Hihat;
+    public static OnJump Jump;
     public static Stopwatch sw;
 
     //private static bool triggerBeat = false;
@@ -36,7 +38,6 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
 
     FMOD.Studio.EVENT_CALLBACK beatCallback;
     private static readonly Queue<DelayedEvent> DelayedEventTriggers = new Queue<DelayedEvent>();
-
 
     void Start()
     {
@@ -67,12 +68,17 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
             {
                 case "Beat":
                 {
-                    Beat();
+                    Beat?.Invoke();
                     break;
                 }
                 case "Hihat":
                 {
-                    Hihat();
+                    Hihat?.Invoke();
+                    break;
+                }
+                case "Jump":
+                {
+                    Jump?.Invoke();
                     break;
                 }
             }
@@ -94,7 +100,6 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
         {
             musicInstanceMaster.setParameterByName("Pitch", PlayerMovement.velocity.x / 1.6f);
         }
-       
     }
 
     void OnDestroy()
@@ -107,10 +112,10 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
 
     void OnGUI()
     {
-        //GUILayout.Box(String.Format("Current Bar = {0}, Last Marker = {1}", timelineInfo.currentMusicBar, (string)timelineInfo.lastMarker));
+        var position = 0;
+        musicInstanceMaster.getTimelinePosition(out position);
+        GUILayout.Box(position.ToString());
     }
-
-   
 
     [AOT.MonoPInvokeCallback(typeof(FMOD.Studio.EVENT_CALLBACK))]
     static FMOD.RESULT BeatEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)
@@ -133,21 +138,7 @@ public class AudioTimeline : MonoBehaviour, IEventSystemHandler
                 {
                     var parameter = (PROGRAMMER_SOUND_PROPERTIES)Marshal.PtrToStructure(parameterPtr, typeof(PROGRAMMER_SOUND_PROPERTIES));
                     var name = (string)parameter.name;
-                    
-                    if (name == "Beat")
-                    {
-                        if (Beat != null)
-                        {
-                            DelayedEventTriggers.Enqueue(new DelayedEvent(sw, delayMillis, name));
-                        }
-                    }
-                    else if (name == "Hihat")
-                    {
-                        if (Hihat != null)
-                        {
-                            DelayedEventTriggers.Enqueue(new DelayedEvent(sw, delayMillis, name));
-                        }
-                    }
+                    DelayedEventTriggers.Enqueue(new DelayedEvent(sw, delayMillis, name));
                     break;
                 }
             }

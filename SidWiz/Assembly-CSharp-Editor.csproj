@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8998F467-5B7C-0070-8CB0-2AE05F85373F}</ProjectGuid>
+    <ProjectGuid>{71182020-A598-086A-1FA8-FFCCC93E4C75}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -53,52 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AnimatedGifDrawer.cs" />
-     <Compile Include="Assets\AudioTimeline.cs" />
-     <Compile Include="Assets\BackgroundColour.cs" />
-     <Compile Include="Assets\ColliderCreator.cs" />
-     <Compile Include="Assets\FollowCamera.cs" />
-     <Compile Include="Assets\FollowCameraX.cs" />
-     <Compile Include="Assets\IAudioEventMessageTarget.cs" />
-     <Compile Include="Assets\ObjectPool.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\GeneratePathExample.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\PathFollower.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\PathPlacer.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\PathSceneTool.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\PathSpawner.cs" />
-     <Compile Include="Assets\PathCreator\Examples\Scripts\RoadMeshCreator.cs" />
-     <Compile Include="Assets\PlatformCreator.cs" />
-     <Compile Include="Assets\PlayerController2D.cs" />
-     <Compile Include="Assets\PlayerMovement.cs" />
-     <Compile Include="Assets\ScrollBackground.cs" />
-     <Compile Include="Assets\SidWizBehaviour.cs" />
-     <Compile Include="Assets\SidWIzLinesRenderer.cs" />
-     <Compile Include="Assets\SidWizPlus\BackgroundRenderer.cs" />
-     <Compile Include="Assets\SidWizPlus\Channel.cs" />
-     <Compile Include="Assets\SidWizPlus\Extensions.cs" />
-     <Compile Include="Assets\SidWizPlus\Gd3Tag.cs" />
-     <Compile Include="Assets\SidWizPlus\ImageInfo.cs" />
-     <Compile Include="Assets\SidWizPlus\MultiDumperWrapper.cs" />
-     <Compile Include="Assets\SidWizPlus\OptionalGzipStream.cs" />
-     <Compile Include="Assets\SidWizPlus\Outputs\IGraphicsOutput.cs" />
-     <Compile Include="Assets\SidWizPlus\ProcessWrapper.cs" />
-     <Compile Include="Assets\SidWizPlus\Program.cs" />
-     <Compile Include="Assets\SidWizPlus\SampleBuffer.cs" />
-     <Compile Include="Assets\SidWizPlus\TextInfo.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\AutoCorrelationTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\BiggestPositiveWaveAreaTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\BiggestWaveAreaTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\ITriggerAlgorithm.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\MiddleWidest.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\NullTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\PeakSpeedTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\RisingEdgeTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\Triggers\WidestWaveTrigger.cs" />
-     <Compile Include="Assets\SidWizPlus\VgmFile.cs" />
-     <Compile Include="Assets\SidWizPlus\WaveformRenderer.cs" />
-     <None Include="Assets\10+1 StandartMaterials\Shaders\Shader2.shader" />
-     <None Include="Assets\JsonDotNet\link.xml" />
-     <None Include="Assets\10+1 StandartMaterials\Shaders\Shader1.shader" />
+     <Compile Include="Assets\PathCreator\Examples\Scripts\Editor\PathSceneToolEditor.cs" />
  <Reference Include="UnityEngine.Purchasing">
  <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/ScriptAssemblies/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
@@ -207,6 +162,9 @@
  <Reference Include="UnityEngine.SharedInternalsModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEngine.SpatialTrackingModule">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.SpriteMaskModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
  </Reference>
@@ -303,6 +261,12 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.TestRunner">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.TestRunner">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
@@ -312,14 +276,35 @@
  <Reference Include="UnityEngine.Timeline">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Timeline">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Networking">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.GoogleAudioSpatializer">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.GoogleAudioSpatializer">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.SpatialTracking">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.VR">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.WindowsStandalone.Extensions">
+ <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="NAudio-Unity">
  <HintPath>C:/repo/unity-sidwiz/SidWiz/Assets/NAudio-Unity.dll</HintPath>
@@ -327,8 +312,17 @@
  <Reference Include="System.Drawing">
  <HintPath>C:/repo/unity-sidwiz/SidWiz/Assets/System.Drawing.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.Advertisements">
+ <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Editor">
+ <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Tracker">
+ <HintPath>C:/repo/unity-sidwiz/SidWiz/Library/PackageCache/com.unity.analytics@3.2.3/Editor/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.35f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -686,6 +680,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{8998F467-5B7C-0070-8CB0-2AE05F85373F}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="FMODUnity.csproj">
       <Project>{0DD59246-CC95-C388-2591-790A3BB86F7E}</Project>      <Name>FMODUnity</Name>    </ProjectReference>
     <ProjectReference Include="FMODUnityResonance.csproj">

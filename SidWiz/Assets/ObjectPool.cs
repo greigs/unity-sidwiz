@@ -7,6 +7,7 @@ public class ObjectPool : MonoBehaviour
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
+    public GameObject playerObject;
 
     void Awake()
     {
@@ -26,14 +27,28 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
+        ClearOldObjects();
+
         for (int i = 0; i < pooledObjects.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!pooledObjects[i].activeSelf)
             {
                 return pooledObjects[i];
             }
         }
 
         return null;
+    }
+
+    private void ClearOldObjects()
+    {
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            if (pooledObjects[i].activeSelf &&
+                pooledObjects[i].transform.position.x < (playerObject.transform.position.x - 20))
+            {
+                pooledObjects[i].SetActive(false);
+            }
+        }
     }
 }
